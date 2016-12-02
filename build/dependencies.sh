@@ -14,4 +14,11 @@ install_linux() {
     fi
 }
 
+install_osx() {
+    if test "$EMULATOR" = simh; then
+	brew update > /dev/null
+	brew install simh
+    fi
+}
+
 "$1"
