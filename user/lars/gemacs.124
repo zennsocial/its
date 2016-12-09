@@ -1,0 +1,73 @@
+!* -*-TECO-*- GNU Emacs compatability library.!
+
+!~Filename~:! !GNU Emacs compatability library.!
+GEMACS
+
+
+!* TODO:
+   M-Tab	Complete Symbol
+   M-<excl>	Shell Command
+   M-%		GNU Emacs-like Query Replace
+   M-*		Pop Tag Mark
+   M-:		Eval Expression
+   M-z		Zap To Char
+   M-TAB	Complete Symbol
+		Perform tags comletion on the texty around point.
+   M-/	Dabbrev Expand
+		Expands to the most recent, preceding word for which
+		this is a prefix.  If no suitable preceding word is found,
+		words following point are considered.
+   C-x n p	Narrow Bounds To Page (C-x p)
+   C-x n d	Narrow Bounds To Defun
+   C-x n w	Set Bounds Full (C-x w)
+   C-x n n	Narrow Bounds To Region (C-x n)
+   C-x r ...	Region commands
+   M-x Apply Macro To Region Lines
+   C-x q	GNU Emacs-like Kbd Macro Query
+!
+
+
+!^R Delete Window:! !^R Remove current window from the display.!
+  M(M.M ^R_Other_Window)
+  M(M.M ^R_One_Window)
+
+
+!^R Previous Screen Eat One Char:! !^R Like ^R Previous Screen.!
+  M(M.M ^R_Previous_Screen)
+  FI
+  
+
+
+!& Setup GEMACS Library:! !& Setup.!
+
+  M.M ^R_Delete_Window U:.x(0)	!* Add C-x 0 binding.!
+  M.M Save_All_Files U:.x(S)		!* Add C-x s binding.!
+  M.M Undo U:.x(U)			!* Add C-x u binding.!
+  !* M.M ^R_Just_One_Space U.. !	!* Add M-Spc binding.!
+
+  !* Rebind paragraph movement to GNU Emacs keys.!
+  M.M ^R_Backward_Paragraph U..{
+  M.M ^R_Forward_Paragraph U..}
+
+  !* Make M-[ a prefix character.!
+  M.C M-[_Prefix_Table Prefix table for Meta-[.
+  M(M.M Make_Prefix_Character)M-[_Prefix_Table U..[
+
+  QM-[_Prefix_Table [0
+    !* The usual cursor movement keys.!
+    M.M ^R_Up_Real_Line U:0(A)
+    M.M ^R_Down_Real_Line U:0(B)
+    M.M ^R_Forward_Character U:0(C)
+    M.M ^R_Backward_Character U:0(D)
+
+    M.M ^R_Previous_Screen_Eat_One_Char U:0(5)
+    !* PgUp: [5~ ^R Previous Screen !
+    !* PgDn: [6~ ^R Next Screen !
+  ]0
+
+
+!*
+ * Local Modes:
+ * Compile Command: M(M.M Generate Library)LARS;GEMACSLARS;GEMACS
+ * End:
+ *!

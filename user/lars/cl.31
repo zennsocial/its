@@ -1,0 +1,114 @@
+;;;; -*- Lisp -*-
+
+(eval-when (eval compile)
+  (if (not (get 'lispm-compatibility 'version))
+      (load '((liblsp) lispm))))
+
+(defmacro lambda (args &body body)
+  `#'(lambda ,args ,@body))
+
+(defun consp (x)
+  (not (atom x)))
+
+(defmacro case (form &body clauses)
+  (let ((val (gensym)))
+    `(let ((,val ,form))
+       (cond
+	,@(mapcar (lambda (clause)
+		    (let ((key (car clause))
+			  (forms (cdr clause)))
+		      (cond
+		       ((eq key t)
+			`(t ,@forms))
+		       ((consp key)
+			`((memq ,val ',key) ,@forms))
+		       (t
+			`((eq ,val ',key) ,@forms)))))
+		  clauses)))))
+
+(defmacro when (form &body body)
+  `(if ,form
+       (progn ,@body)))
+
+(defmacro unless (form &body body)
+  `(if (not ,form)
+       (progn ,@body)))
+
+(defun butlast (list)
+  (cond
+   ((null list)		nil)
+   ((null (cdr list))	nil)
+   ((cons (car list) (butlast (cdr list))))))
+
+(defun position (item list)
+  (do ((i 0 (1+ i))
+       (list list (cdr list)))
+      ((null list)
+       nil)
+    (when (eq item (car list))
+      (return i))))
+
+(defun cl:subseq (seq start &optional end)
+  (if (eq start (length seq))
+      nil
+      (subseq seq start end)))
+
+(defun char-downcase (ch)
+  (if (<= #/A ch #/Z)
+      (+ ch (- #/a #/A))
+      ch))
+
+(defun char-upcase (ch)
+  (if (<= #/a ch #/a)
+      (+ ch (- #/A #/a))
+      ch))
+
+(defun string-downcase (string)
+  (implode (mapcar #'char-downcase (exploden string))))
+
+(defun string-upcase (string)
+  (implode (mapcar #'char-upcase (exploden string))))
+
+#|
+
+(defun symbol-name (sym)
+  (pnget sym 7))
+
+(defun symbol-plist (sym)
+  (plist sym))
+
+(defun symbol-value (sym)
+  (symeval sym))
+
+(defun symbol-function (sym)
+  (or (get sym 'expr)
+      (get sym 'fexpr)
+      (get sym 'macro)
+      (get sym 'subr)
+      (get sym 'lsubr)
+      (get sym 'fsubr)))
+
+(defun cl:intern (name &optional (obarray *package*))
+  (intern name))
+
+(defun unintern (sym &optional (obarray *package*))
+  (remob sym))
+
+(defun find-symbol (name &optional (package *package*))
+   (prog ()
+     (mapatoms (lambda (sym)
+		 (when (samepnamep sym name)
+		   (return sym)))
+	       package)
+     nil))
+
+(defun macro-function (sym)
+  (get sym 'macro))
+
+(defun stringp (obj)
+  (and (symbolp obj) (get obj '+internal-string-marker)))
+
+(defun cl:symbolp (obj)
+  (and (symbolp obj) (not (get obj '+internal-string-marker))))
+
+|#

@@ -1,0 +1,171 @@
+;;;; -*- Lisp -*-
+
+(eval-when (eval compile)
+  (load "lars;cl"))
+
+(defun read-until (stream chars)
+  (do ((string nil)
+       (ch (tyi s) (tyi s)))
+      ((or (null ch) (memq ch chars))
+       (push ch string)
+       (nreverse string))
+    (push ch string)))
+
+(defun last1 (list)
+  (car (last list)))
+
+(defun tyi-peek (stream)
+  (let ((^q t)
+	(infile stream))
+    (tyipeek)))
+
+(defun skip-spaces (stream)
+  (do ((string nil)
+       (ch (tyi-peek stream) (tyi-peek stream)))
+      ((not (memq ch '(9. 32.)))
+       (nreverse string))
+    (push (tyi stream) string)))
+
+(defun parse-node-name (s &optional allow-period)
+  (let ((file nil)
+	(ch (tyi-peek s))
+	(end '(9. #/, 10. 13.)))
+    (when (eq ch #/()
+      (setq file (butlast (read-until s '(#/))))))
+    (when allow-period
+      (push #/. end))
+    (list file (read-until s end))))
+
+(defun node-url (name)
+  (let ((url nil)
+	i)
+    (unless (listp name)
+      (setq name (exploden name)))
+
+    ;; Parse file portion of node name.
+    (when (and (eq (car name) #/()
+	       (setq i (position #/) name)))
+      (let ((file (subseq name 1 (1- i))))
+	(setq name (cl:subseq name (1+ i)))
+	(if (setq i (position #/; file))
+	    (setq url (append '(#//) (subseq file 0 i) '(#//)
+			      (subseq file (1+ i))))
+	    (setq url (append '#.(exploden "//info//") file)))))
+
+    ;; Add node name.
+    (unless (or (null name) (equal name '(#/*)))
+      (setq url (append url '(#/#) name)))
+
+    url))
+
+(defun parse-node-line (s)
+  (gc)
+  (when (eq (tyi-peek s) #/)
+    (tyi s)
+    (format t "~&<br>"))
+  (when (eq (tyi-peek s) 13.)
+    (tyo (tyi s) t)
+    (when (eq (tyi-peek s) 10.)
+      (tyo (tyi s) t)))
+  ;; [File: <name>]
+  ;; Node:<spaces and tabs><node><tab, comma, or newline>
+  ;; Previous:<spaces and tabs>[(<file>)]<node><tab, comma, or newline>
+  ;; Up:
+  ;; Next:
+  (do ((done nil))
+      (done)
+    (let ((s1 (skip-spaces s))
+	  (keyword (read-until s '(#/:)))
+	  (s2 (skip-spaces s))
+	  (name (read-until s '(9. #/, 10. 13.))))
+      (setq done (memq (last1 name) '(10. 13.)))
+      (case (string-downcase (implode (butlast keyword)))
+	(|node|
+	 (setq name (append '#.(exploden "<a name=/"")
+			    (butlast name)
+			    '#.(exploden "/"><b>")
+			    (butlast name)
+			    '#.(exploden "<//b><//a>")
+			    (last name))))
+	((|previous| |up| |next|)
+	 (setq name (append '#.(exploden "<a href=/"")
+			    (node-url (butlast name))
+			    '#.(exploden "/">")
+			    (butlast name)
+			    '#.(exploden "<//a>")
+			    (last name)))))
+      (format t "~A~A~A~A"
+	      (implode s1) (implode keyword) (implode s2) (implode name)))))
+      
+(defun parse-menu (s)
+  ;; * Menu:<comment>
+  ;; * <name>::
+  ;; * <name>:<spaces and tabs><node><tab, comma, or newline>
+  (let* ((name (read-until s '(#/: 10. 13.)))
+	 (ch (last1 name)))
+    (setq name (implode (butlast name)))
+    (cond
+     ((memq ch '(10. 13.))
+      (format t "~A~C" name ch))
+     ((eq (string-downcase name) '|menu|)
+      (format t "* ~A:" name))
+     ((eq (setq ch (tyi-peek s)) #/:)
+      (tyi s)
+      (format t "* <a href=/"~A/">~A<//a>::" (implode (node-url name)) name))
+     (t
+      (let ((spaces (skip-spaces s))
+	    (node (read-until s '(9. #/, 10. 13.))))
+	(format t "* <a href=/"~A/">~A:~A~A<//a>~C"
+		(implode (node-url (butlast node)))
+		name
+		(implode spaces)
+		(implode (butlast node))
+		(last1 node)))))))
+
+(defun parse-note (s)
+  ;; *Note <name>:<spaces and tabs><node><period, tab, comma, or newline>
+  (let ((ote (read-until s '(#/ )))
+	(name (read-until s '(#/:)))
+	(spaces (skip-spaces s))
+	(node (read-until s '(#/. 9. #/, 10. 13.))))
+    (format t "~A~A~A<a href=/"~A/">~A<//a>~C"
+	    (implode (node-url (butlast node)))
+	    (implode ote)
+	    (implode name)
+	    (implode spaces)
+	    (implode (butlast node))
+	    (last1 node))))
+
+(defun parse-link (s)
+  (let ((ch (tyi s)))
+    (cond
+     ((eq ch #/ )
+      (parse-menu s))
+     ((memq ch '(#/N #/n))
+      (tyo ch t)
+      (parse-note s))
+     (t
+      (tyo ch t)))))
+
+(defun foo (file)
+  (with-open-file (s file)
+    (eoffn file (lambda (f v) nil))
+    (do ((ch (tyi s) (tyi s)))
+	((null ch))
+      (case ch
+	(#/*	(parse-link s))
+	(#/	(parse-node-line s))
+	(#/	(format t "~&<br>~%"))
+	(#/<	(format t "&lt;"))
+	(#/>	(format t "&gt;"))
+	(#/&	(format t "&amp;"))
+	(t	(tyo ch t))))))
+
+(defun bar ()
+  (gctwa t)
+  (format t "~&<!DOCTYPE html PUBLIC /"-////W3C////DTD XHTML 1.0 Strict////EN/" ")
+  (format t "/"http:////www.w3.org//TR//xhtml1//DTD//xhtml1-strict.dtd/">~%")
+  (format t "<html>~%  <head>~%    <link rel=/"stylesheet/" type=/"text//css/" href=/"//default%20css/" //>~%")
+  (format t "    <title>TITLE<//title>~%  <head>~%  <body>~%    <pre>~%")
+  (foo "info;find >")
+  (format t "~&    <//pre>~%  <//body>~%<//html>"))
