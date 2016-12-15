@@ -23,6 +23,7 @@ FS H Sname:f6[2
 @:I*/ M.M ^R LISPT Code U...X / M.V LISPT Setup Hook
 
 !* Load the GNU Emacs goodness.!
+MM Load LibraryBARE
 MM Load LibraryLARS;GEMACS
 
 !* Read the standard init.!
