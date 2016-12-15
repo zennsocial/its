@@ -27,4 +27,4 @@ MM Load LibraryBARE
 MM Load LibraryLARS;GEMACS
 
 !* Read the standard init.!
-ER EMACS;EMACS INIT @Y :M(HFX*)
+ER EMACS;* EMACS @Y :M(HFX*)
