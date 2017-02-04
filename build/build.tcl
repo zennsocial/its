@@ -416,6 +416,11 @@ respond "*" ":link device;jobdev ar,device;jobdev arc\r"
 respond "*" ":midas device;jobdev d_syseng;dskdev\r"
 expect ":KILL"
 
+# RAYGUN
+respond "*" ":midas sysbin;_syseng;raygun\r"
+expect ":KILL"
+respond "*" ":link dragon;hourly raygun,sysbin;raygun bin\r"
+
 respond "*" ":midas sysbin;_sysen3;whoj\r"
 expect ":KILL"
 respond "*" ":link sys1;ts talk,sysbin;whoj bin\r"
