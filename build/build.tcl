@@ -1206,6 +1206,10 @@ expect ":KILL"
 respond "*" ":midas sys2;ts wholin_sysen2;wholin\r"
 expect ":KILL"
 
+# DEVICE; CHAOS TIME
+respond "*" ":midas device;chaos time_syseng;ctimsr\r"
+expect ":KILL"
+
 # OBS
 respond "*" ":midas sys;ts obs_bawden;obs\r"
 expect ":KILL"
