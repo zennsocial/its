@@ -137,6 +137,7 @@
 - LIMSER, Chaosnet limerick service.
 - LISP, Lisp interpreter and runtime library (autoloads only).
 - LIVE, PALX Game of Life.
+- LLOGO, Logo implemented in Maclisp
 - LOADP, displays system load.
 - LOCK, shut down system.
 - LOGO, BBN Logo.
