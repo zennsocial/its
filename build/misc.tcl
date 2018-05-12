@@ -410,6 +410,17 @@ respond "designs" "\r"
 respond "suns" "\r"
 expect ":KILL"
 
+# Dazzle Dart
+respond "*" ":midas /t dsk0:.;@ dazdrt_klh; dazdrt\r"
+respond "with ^C" "APR==0\r"
+respond "\n" "PI==4\r"
+respond "\n" "DIS==130\r\003"
+respond "ITS=" "0\r"
+expect ":KILL"
+respond "*" ":midas /t games;ts dazdrt_klh; dazdrt\r"
+respond "ITS=" "1\r"
+expect ":KILL"
+
 # MLIFE
 respond "*" ":midas /t games;ts mlife_rwg;mlife\r"
 respond "with ^C" "APR==0\r"
