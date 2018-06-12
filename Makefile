@@ -133,7 +133,7 @@ $(SIMH):
 	cd tools/simh; make pdp10
 
 $(KA10):
-	cd tools/sims; make ka10 TYPE340=y
+	cd tools/sims; make ka10 TYPE340=y CFLAGS_G="-I/opt/X11/include"
 
 $(ITSTAR):
 	cd tools/itstar; make
