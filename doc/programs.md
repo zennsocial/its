@@ -235,6 +235,7 @@
 - VERSA/SPOOLR, Versatec/Gould printer spooler.
 - VTTIME, display running time on the terminal.
 - VV/VJ/DETREE, list jobs.
+- VT07 - GT40 Datapoint emulator and graphics.
 - XHOST, tool for replacing host nicknames with real hostnames.
 - WA, a Wumpus advisor game.
 - WHAT, humorous quips to various "what" questions.
