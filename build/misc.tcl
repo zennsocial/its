@@ -422,6 +422,14 @@ respond "\n" "TTY==120\r"
 respond "\n" "DIS==130\r\003"
 expect ":KILL"
 
+# Pornis
+respond "*" ":midas /t dsk0:.;@ pornis_rwg;pornis\r"
+respond "with ^C" "PI==4\r"
+respond "\n" "PTR==104\r"
+respond "\n" "TTY==120\r"
+respond "\n" "DIS==130\r\003"
+expect ":KILL"
+
 # Hunt the Wumpus
 respond "*" ":midas sys1;ts wumpus_games; wumpus\r"
 expect ":KILL"
