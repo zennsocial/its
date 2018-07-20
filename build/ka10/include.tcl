@@ -111,6 +111,17 @@ proc dump_nits {} {
     respond "UNIT #" "0"
     respond "UNIT #" "3"
     respond "OK?" "Y"
+
+#   respond "DDT" "chkr\033g"
+
+# CHKR$G
+# SALVAGER.313
+# ACTIVE UNITS ARE:0
+# UNIT #0 ID IS 2 PK #2
+# USE MFD FROM UNIT:0
+# READ ALL BLOCKS OF ALL FILES?Y
+# GET USR DIRS FROM UNIT:0
+
     respond "DDT" "\033u"
 
     # Now dump the new ITS.
