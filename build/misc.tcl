@@ -436,6 +436,10 @@ respond "designs" "\r"
 respond "suns" "\r"
 expect ":KILL"
 
+# Knight TV Spacewar
+respond "*" ":midas games;ts tvwar_spcwar; tvwar\r"
+expect ":KILL"
+
 # MLIFE
 respond "*" ":midas /t games;ts mlife_rwg;mlife\r"
 respond "with ^C" "APR==0\r"
