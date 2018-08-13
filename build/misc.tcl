@@ -416,7 +416,7 @@ respond "*" ":midas games;ts ckr_agb;ckr\r"
 expect ":KILL"
 
 # Spacewar, standalone
-respond "*" ":midas /t dsk0:.;@ spcwar_spcwar; newwar\r"
+respond "*" ":midas /t dsk0:.;@ spcwar_spcwar; spcwar\r"
 respond "with ^C" "APR==0\r"
 respond "\n" "PI==4\r"
 respond "\n" "DIS==130\r\003"
@@ -429,7 +429,7 @@ respond "recording" "\r"
 expect ":KILL"
 
 # Spacewar, timesharing
-respond "*" ":midas games;ts spcwar_spcwar; newwar\r"
+respond "*" ":midas games;ts spcwar_spcwar; spcwar\r"
 respond "ITS version" "YES\r"
 respond "ships" "\r"
 respond "designs" "\r"
