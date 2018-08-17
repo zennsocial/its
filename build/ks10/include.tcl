@@ -83,8 +83,7 @@ proc frontend_bootstrap {} {
 }
 
 proc its_switches {} {
-    respond "MACHINE NAME =" "DB\r"
-    respond "Configuration?" "RP06\r"
+    respond "MACHINE NAME =" "LC\r"
 }
 
 proc make_ntsddt {} {
@@ -96,7 +95,7 @@ proc make_ntsddt {} {
 
 proc make_salv {} {
     respond "*" ":midas dsk0:.;_kshack;nsalv\r"
-    respond "Which machine?" "KSRP06\r"
+    respond "Which machine?" "LC\r"
     expect ":KILL"
 }
 
@@ -115,7 +114,7 @@ proc make_dskdmp {} {
 }
 
 proc dump_switches {} {
-    respond "WHICH MACHINE?" "DB\r"
+    respond "WHICH MACHINE?" "LC\r"
 }
 
 proc peek_switches {} {
