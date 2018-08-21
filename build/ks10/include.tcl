@@ -17,7 +17,63 @@ proc mark_packs {} {
     respond "Pack no ?" "0\r"
     respond "Verify pack?" "n"
     respond "Alloc?" "3000\r"
-    respond "ID?" "foobar\r"
+    respond "ID?" "ITS#0\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "1"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "1\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#1\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "2"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "2\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#2\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "3"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "3\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#3\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "4"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "4\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#4\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "5"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "5\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#5\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "6"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "6\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#6\r"
+
+    respond "\n" "mark\033g"
+    respond "Format pack on unit #" "7"
+    respond "Are you sure you want to format pack on drive" "y"
+    respond "Pack no ?" "7\r"
+    respond "Verify pack?" "n"
+    respond "Alloc?" "3000\r"
+    respond "ID?" "ITS#7\r"
 }
 
 proc prepare_frontend {} {
@@ -122,8 +178,46 @@ proc peek_switches {} {
 }
 
 proc dump_nits {} {
+    # Run the new DSKDMP from disk here, to check that it works.
     respond "DSKDMP" "dskdmp bin\r"
+
     respond "DSKDMP" "l\033ddt\r"
+
+    # Since we bootstrap with a 1-pack ITS, we need to copy the MFD to
+    # the fresh packs.
+    respond "\n" "t\033nsalv bin\r"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "1"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "2"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "3"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "4"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "5"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "6"
+    respond "OK (Y or N)" "Y"
+    respond "\n" "ucop\033g"
+    respond "unit #" "0"
+    respond "unit #" "7"
+    respond "OK (Y or N)" "Y"
+
+    respond "\n" "\033u"
+
+    # Now dump the new ITS.
     respond "\n" "t\033its bin\r"
     respond "\n" "\033u"
     respond "DSKDMP" "m\033nsalv bin\r"
