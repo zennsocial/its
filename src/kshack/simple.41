@@ -3190,8 +3190,6 @@ BLT-CLEANUP:
 ; ;; 2 BITS ;; BYTE 1 ;; BYTE 0 ;; 2 BITS ;; BYTE 3 ;; BYTE 2 ;;
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-;Fortunately, opcodes 716 and 717 aren't used by DECUUO's WAITS simulator,
-;so it's okay for these to be legal in user mode.
 
 ;---This DEC code seems to have been written by someone who didn't understand macros
 
