@@ -263,7 +263,7 @@ proc update_microcode {} {
     respond "Which file" "ram\r"
     expect "Input from"
     sleep 1
-    respond ":" ".;ram ram\r"
+    respond ":" ".;new ram\r"
     respond "!" "quit\r"
     expect ":KILL"
 }
