@@ -922,3 +922,9 @@ respond "*" ":complr\r"
 respond "_" "kle;forth\r"
 respond "_" "\032"
 type ":kill\r"
+
+# 8048 disassembler
+respond "*" ":complr\r"
+respond "_" "moon;8478sa\r"
+respond "_" "\032"
+type ":kill\r"

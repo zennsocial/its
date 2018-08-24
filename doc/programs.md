@@ -5,6 +5,7 @@
 - 11SIM, PDP-11 emulator.
 - 11STNK, PDP-11 linker.
 - 20XCVT, convert TOPS-20 CSAVE file to PDUMP.
+- 8478SA, disassembler for Intel 8048.
 - @, cross reference generation tool.
 - ACNVRT/MCNVRT/PCNVRT/UCNVRT, asciizer and binarator.
 - ACCLNK, sets com-link accept bit for specified TTY.
