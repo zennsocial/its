@@ -1036,11 +1036,11 @@ DEFOPT TM03S==1		;TM03/RH11 Unibus tape controller
 ;DEFOPT NINDX==50.	;Number of indices
 ;DEFOPT CH11P==1		;CHAOS net goes through Unibus
 
-DEFOPT DZ11P==0		;Has no DZ11 TTY controller
-; DEFOPT DZ11NB==1	; But if it did, it would be 1 of them
-; DEFSYM DZ0BA=:760010
+DEFOPT DZ11P==1		;Has no DZ11 TTY controller
+ DEFOPT DZ11NB==1	; But if it did, it would be 1 of them
+ DEFSYM DZ0BA=:760010
 DEFOPT NKSTYS==1	;# KS-10 8080 console 0 TTYs
-;DEFOPT NDZTYS==8.	;# DZ-11 TTYs
+DEFOPT NDZTYS==8.	;# DZ-11 TTYs
 DEFOPT NSTTYS==12.	;# of STY's (Pseudo-TTY's)
 
 DEFOPT TSYSM==512.	;Total PDP10 1K memory blocks
