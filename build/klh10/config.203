@@ -1027,18 +1027,19 @@ DEFOPT RP06P==1		; with two RP06s
 DEFOPT NMTCS==1		;Number of magtape units (so why not NMTUS?)
 DEFOPT TM03S==1		;TM03/RH11 Unibus tape controller
 
-;DEFOPT NETP==1		;Has one kind of network anyway
+DEFOPT NETP==1		;Has one kind of network anyway
 ;DEFOPT INETP==1		; Include Internet code
 ;DEFOPT TCPP==1		; Include TCP code
 ;DEFOPT XBL==30.		; # TCP network channels
-;DEFOPT CHAOSP==1	;Has CHAOS net
-;DEFOPT MYCHAD==3130	;CHAOS net address
-;DEFOPT NINDX==50.	;Number of indices
-;DEFOPT CH11P==1		;CHAOS net goes through Unibus
+DEFOPT CHAOSP==1	;Has CHAOS net
+DEFOPT MYCHAD==3130	;CHAOS net address
+DEFOPT NINDX==50.	;Number of indices
+DEFOPT CH11P==1		;CHAOS net goes through Unibus
 
-DEFOPT DZ11P==1		;Has no DZ11 TTY controller
- DEFOPT DZ11NB==1	; But if it did, it would be 1 of them
+DEFOPT DZ11P==1		;Has DZ11 TTY controllers
+ DEFOPT DZ11NB==2	; 2 of them
  DEFSYM DZ0BA=:760010
+ DEFSYM DZ1BA=:760020
 DEFOPT NKSTYS==1	;# KS-10 8080 console 0 TTYs
 DEFOPT NDZTYS==8.	;# DZ-11 TTYs
 DEFOPT NSTTYS==12.	;# of STY's (Pseudo-TTY's)
