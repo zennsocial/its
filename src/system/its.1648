@@ -26,7 +26,7 @@ IF1 [ PRINTX \MACHINE NAME = \
 ;	NX	Non-eXistent KS10 (KLH10)
 ;	DB	KS10 DistriBution
 ;	KA	Generic KA10
-;	LC	Very nice KS10
+;	LC	Liquor Control Board KS10
 ;THE FILE "CONFIG" HAS ASSEMBLY SWITCHES AS A FUNCTION OF MACHINE.
 
 .TTYMAC A

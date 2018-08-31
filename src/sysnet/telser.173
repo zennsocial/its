@@ -897,6 +897,14 @@ CHTELE:	SETOM NEWTEL		;NEW TELNET IS DEFAULT
 	 MOVEI A,[ASCIZ/MIT Mailinglist Central PDP-10/]
 	CAIN C,(SIXBIT/DB/)
 	 MOVEI A,[ASCIZ/DB-ITS/]
+	CAIN C,(SIXBIT/LC/)
+;	 MOVEI A,[ASCIZ/Library of Congress PDP-10/]
+;	 MOVEI A,[ASCIZ/Saint Lucia PDP-10/]
+;	 MOVEI A,[ASCIZ/Lethal Concentration PDP-10/]
+;	 MOVEI A,[ASCIZ/Letter of Credit PDP-10/]
+;	 MOVEI A,[ASCIZ/Liberty City PDP-10/]
+;	 MOVEI A,[ASCIZ/Low Carb PDP-10/]
+	 MOVEI A,[ASCIZ/Liquor Control Board ITS/]
 	HRLI A,440700
 	MOVEM A,GREET
 	.SUSET [.SMASK,,[%PIIOC]]
