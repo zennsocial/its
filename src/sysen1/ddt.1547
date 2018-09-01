@@ -6966,9 +6966,18 @@ TYI:	CALL TYOFRC	;.LISTEN IS SUPPOSED TO FORCE OUTPUT.
 TYI3:	CALL HAKKAM	;DO HAKKAH RQ'S, SAY DO ANY MORE WHEN QUEUED.
 	SETZM CTLZFL
 	SKIPGE D,TTYUNR
-	  .IOT TYIC,D
+	  .IOT TYIFC,D
+	SKIPE METAP
+	 JRST [TRZN D,%TXTOP+%TXSUP	;CLEAR TOP AND SUPER
+	       TRZE D,%TXCTL	;IF CONTROL BIT SET,
+	        TRZ D,140	;CONVERT TO ASCII.
+	       TRZN D,%TXMTA
+		JRST .+1
+	       MOVEM D,TTYUNR	;META BIT SET, SAVE CHAR FOR LATER.
+	       MOVEI D,33	;RETURN ALTMODE.
+	       JRST TYI4]
 	SETOM TTYUNR
-	setzm hakok	;defer HAKKAH rq's again.
+TYI4:	setzm hakok	;defer HAKKAH rq's again.
 	skipn tthelp		   ;If [HELP] isn't desired
 	  caie d,%txtop+"H	   ;  help key becomes question mark
 	    caia
@@ -10571,6 +10580,8 @@ IOCOPN:	TSOPEN TYOC,[[21,,'TTY]]
 	tlnn i4,%toers	;if the TTY is erasible
 	  tlnn i4,%toovr  ;  or can't be overwritten,
 	    setom erase	;   ^PX and friends will win!
+	TLNE I4,%TOFCI	;CAN TTY DO FULL 12-BIT CHARACTER SET?
+	 AOS METAP	; META KEY WINS
 	TLNE I4,%TOMVU
 	 AOS GETTY
 	TLZ C,%TSSAI+%TSROL+%TSMOR
@@ -17598,6 +17609,7 @@ JPDLP:	004400,,JPDLB+1	;POINTER INTO JPDL
 JPDLB:	BLOCK JPDLL
 JPDLE::
 JPDLC:	0		;# OF VALID ENTRIES IN JPDL (BETWEEN 0 AND JPDLL)
+METAP:	0		;WINNING META KEY
 
 	VARIAB
 DDTEND:	INFORM [Start of SYMTAB space]\.-1
