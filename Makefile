@@ -39,7 +39,7 @@ DOCIGNORE=-e '\.(jpeg|pdf|info|md)$$' -e '^(dcg|github)$$'
 # These are on the minsys tape.
 BINIGNORE=-e '^(ka10|ks10|sys)$$'
 
-SUBMODULES = dasm itstar klh10 mldev simh sims supdup tapeutils
+SUBMODULES = dasm itstar klh10 mldev simh sims supdup tapeutils tv11
 
 # These files are used to create bootable tape images.
 RAM = bin/ks10/boot/ram.262
@@ -53,6 +53,7 @@ ITSTAR=tools/itstar/itstar
 WRITETAPE=tools/tapeutils/tapewrite
 MAGFRM=tools/dasm/magfrm
 GT40=tools/simh/BIN/pdp11 $(OUT)/bootvt.img
+TV11=tools/tv11/tv11
 
 H3TEXT=$(shell cd build; ls h3text.*)
 SMF:=$(addprefix tools/,$(addsuffix /.gitignore,$(SUBMODULES)))
@@ -68,7 +69,7 @@ out/klh10/stamp: $(OUT)/rp0.dsk
 out/simh/stamp: $(OUT)/rp0.dsk $(GT40)
 	$(TOUCH) $@
 
-out/sims/stamp: $(OUT)/rp03.2 $(OUT)/rp03.3 $(GT40)
+out/sims/stamp: $(OUT)/rp03.2 $(OUT)/rp03.3 $(GT40) $(TV11)
 	$(TOUCH) $@
 
 $(OUT)/rp0.dsk: build/simh/init $(OUT)/minsys.tape $(OUT)/salv.tape $(OUT)/dskdmp.tape build/build.tcl $(OUT)/sources.tape build/$(EMULATOR)/stamp
@@ -188,6 +189,10 @@ $(WRITETAPE):
 
 $(MAGFRM):
 	$(MAKE) -C tools/dasm
+
+$(TV11):
+	$(MAKE) -C tools/tv11
+	$(MAKE) -C tools/tv11/tvcon
 
 tools/supdup/supdup:
 	$(MAKE) -C tools/supdup

@@ -1,17 +1,25 @@
 #!/bin/sh
 
-gt40() {
-    trap kill_gt40 0
-    (sleep 3; tools/simh/BIN/pdp11 build/sims/gt40 >gt40.log 2>&1) &
-    GT40="$!"
-    echo "GT40 started, pid $GT40"
+started() {
+    trap "stop $1 $2" 0
+    echo "$1 started, pid $2"
 }
 
-kill_gt40() {
-    kill "$GT40"
+stop() {
+    kill "$2"
     sleep 1
-    kill -9 "$GT40"
-    echo "GT40 stopped"
+    kill -9 "2"
+    echo "$1 stopped"
+}
+
+gt40() {
+    (sleep 3; tools/simh/BIN/pdp11 build/sims/gt40 >gt40.log 2>&1) &
+    started GT40 "$!"
+}
+
+tv11() {
+    (sleep 3; tools/tv11/tv11 -p 1234 localhost >tv11.log 2>&1) &
+    started TV-11 "$!"
 }
 
 while test -n "$1"; do
