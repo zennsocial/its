@@ -8,5 +8,9 @@ at dpa0 out/sims/rp03.2
 at dpa1 out/sims/rp03.3
 at dpa2 out/sims/rp03.0
 at dpa3 out/sims/rp03.1
+at dpa4 out/sims/rp03.4
+at dpa5 out/sims/rp03.5
+at dpa6 out/sims/rp03.6
+at dpa7 out/sims/rp03.7
 set dpa headers
 b ptr

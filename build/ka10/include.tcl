@@ -37,6 +37,38 @@ proc mark_packs {} {
     expect -timeout 300 "VERIFICATION"
     respond "ALLOC =" "3000\r"
     respond "PACK ID =" "1\r"
+
+    respond "DDT" "mark\033g"
+    respond "UNIT #" "4"
+    respond "#4?" "y"
+    respond "NO =" "4\r"
+    expect -timeout 300 "VERIFICATION"
+    respond "ALLOC =" "3000\r"
+    respond "PACK ID =" "4\r"
+
+    respond "DDT" "mark\033g"
+    respond "UNIT #" "5"
+    respond "#5?" "y"
+    respond "NO =" "5\r"
+    expect -timeout 300 "VERIFICATION"
+    respond "ALLOC =" "3000\r"
+    respond "PACK ID =" "5\r"
+
+    respond "DDT" "mark\033g"
+    respond "UNIT #" "6"
+    respond "#6?" "y"
+    respond "NO =" "6\r"
+    expect -timeout 300 "VERIFICATION"
+    respond "ALLOC =" "3000\r"
+    respond "PACK ID =" "6\r"
+
+    respond "DDT" "mark\033g"
+    respond "UNIT #" "7"
+    respond "#7?" "y"
+    respond "NO =" "7\r"
+    expect -timeout 300 "VERIFICATION"
+    respond "ALLOC =" "3000\r"
+    respond "PACK ID =" "7\r"
 }
 
 proc prepare_frontend {} {
@@ -46,7 +78,7 @@ proc frontend_bootstrap {} {
 }
 
 proc its_switches {} {
-    respond "MACHINE NAME =" "KA\r"
+    respond "MACHINE NAME =" "TT\r"
 }
 
 proc make_ntsddt {} {
@@ -60,7 +92,7 @@ proc make_ntsddt {} {
 proc make_salv {} {
     respond "*" ":midas dsk0:.;@ salv_system;salv\r"
     respond "time-sharing?" "n\r"
-    respond "machine?" "KA\r"
+    respond "machine?" "TT\r"
     expect ":KILL"
 }
 
@@ -83,7 +115,7 @@ proc make_dskdmp {} {
 }
 
 proc dump_switches {} {
-    respond "WHICH MACHINE?" "KA\r"
+    respond "WHICH MACHINE?" "TT\r"
 }
 
 proc peek_switches {} {
@@ -107,6 +139,22 @@ proc dump_nits {} {
     respond "UNIT #" "0"
     respond "UNIT #" "3"
     respond "OK?" "Y"
+    respond "DDT" "ucop\033g"
+    respond "UNIT #" "0"
+    respond "UNIT #" "4"
+    respond "OK?" "Y"
+    respond "DDT" "ucop\033g"
+    respond "UNIT #" "0"
+    respond "UNIT #" "5"
+    respond "OK?" "Y"
+    respond "DDT" "ucop\033g"
+    respond "UNIT #" "0"
+    respond "UNIT #" "6"
+    respond "OK?" "Y"
+    respond "DDT" "ucop\033g"
+    respond "UNIT #" "0"
+    respond "UNIT #" "7"
+    respond "OK?" "Y"
     respond "DDT" "\033u"
 
     # Now dump the new ITS.
@@ -127,7 +175,7 @@ proc bootable_tapes {} {
     global emulator_escape
     global out
 
-    respond "*" ":midas .;magdmp bin.ka_syseng;magdmp\r"
+    respond "*" ":midas .;magdmp bin.tt_syseng;magdmp\r"
     respond "PTRHRI=" "n\r"
     magdmp_switches
     expect ":KILL"
@@ -136,7 +184,7 @@ proc bootable_tapes {} {
     create_tape "$out/magdmp.tape"
 
     type ":magfrm\r"
-    respond "?" "KA\r"
+    respond "?" "TT\r"
     respond "?" "Y"
     respond "_" "W"
     respond "FROM" ".; @ DDT\r"
