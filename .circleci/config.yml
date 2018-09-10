@@ -50,5 +50,3 @@ workflows:
   build:
     jobs:
       - build_ka10
-      - build_klh10
-      - build_simh
