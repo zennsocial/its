@@ -54,6 +54,7 @@ proc mark_packs {} {
     respond "ALLOC =" "3000\r"
     respond "PACK ID =" "5\r"
 
+  if 0 {
     respond "DDT" "mark\033g"
     respond "UNIT #" "6"
     respond "#6?" "y"
@@ -69,6 +70,7 @@ proc mark_packs {} {
     expect -timeout 300 "VERIFICATION"
     respond "ALLOC =" "3000\r"
     respond "PACK ID =" "7\r"
+  }
 }
 
 proc prepare_frontend {} {
@@ -147,6 +149,7 @@ proc dump_nits {} {
     respond "UNIT #" "0"
     respond "UNIT #" "5"
     respond "OK?" "Y"
+  if 0 {
     respond "DDT" "ucop\033g"
     respond "UNIT #" "0"
     respond "UNIT #" "6"
@@ -155,6 +158,7 @@ proc dump_nits {} {
     respond "UNIT #" "0"
     respond "UNIT #" "7"
     respond "OK?" "Y"
+  }
     respond "DDT" "\033u"
 
     # Now dump the new ITS.
