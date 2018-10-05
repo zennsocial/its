@@ -63,6 +63,10 @@ respond "*" ":link lisp;subloa lsp,nilcom;subloa >\r"
 
 respond "*" "complr\013"
 respond "_" "liblsp;_libdoc;loop\r"
+respond "_" "\032"
+type ":kill\r"
+
+respond "*" "complr\013"
 respond "_" "lisp;_lspsrc;umlmac\r"
 respond "_" "lisp;_nilcom;sharpa\r"
 respond "_" "lisp;_nilcom;sharpc\r"
@@ -1128,3 +1132,24 @@ respond ":" "t\r"
 respond ":" "t\r"
 respond "\n" ":vk\r"
 respond "*" ":kill\r"
+
+# AS8748
+respond "*" ":complr\r"
+respond "_" "lmio1;as8748\r"
+respond "_" "\032"
+type ":kill\r"
+
+respond "*" ":complr\r"
+respond "_" "moon;8478sa\r"
+respond "_" "\032"
+type ":kill\r"
+
+respond "*" ":lisp\r"
+respond "Alloc?" "n"
+respond "*" "(load '((lmio1) as8748))"
+respond_load "(load '((lmio1) ukbd))"
+respond "T" "(as 'ukbd)"
+respond "UKBD" "(quit)"
+expect ":KILL"
+
+
